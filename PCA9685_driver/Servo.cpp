@@ -1,44 +1,66 @@
 #include "Servo.h"
 
 //    MEASURED DATA
-//const int FREQ    = 45;
+
 
 //Constructor
+
 Servo::Servo(int channel, PCA9685 driver, int min, int max) {
     this->channel = channel;
     this->driver = &driver;
-    this->driver->setPWMFreq(45);
+    this->driver->setPWMFreq(FREQ);
     this->min_angle = min;
     this->max_angle = max;
-    params = (struct thread_params *)params;
-    params->servo = &this;
-    
+
+    this->thread_parameters = {
+        &this,
+        &this->targetAngle,
+        &this->speed,
+        &this->turning,
+        &this->running
+    };
+    pthread_create(&thread, NULL, &thread_method, (void*) & thread_parameters);
 }
 
 //Destructor
 
 Servo::~Servo() {
+    this->running = false; // Breaks thread loop.
+    pthread_join(thread, NULL); // Sleep until thread ends.
 }
 
-void* thread(void* args) {
+int Servo::isRunning() {
+    return this->running;
 }
 
-int Servo::setAngle(int angle) {
+int Servo::isTurning() {
+    return this->turning;
+}
+
+int Servo::setAngle(int angle, int speed) {
+/* EDIT TO USE THREAD */
     if ((angle > this->max_angle) || (angle < this->min_angle) {
-        return 1; // INCORRECT PARAMETERS
-    }
+            return 1; // INCORRECT PARAMETERS
+        }
 
-    float angleMod = (float) (angle + 90) / 180; // MAKE ANGLE ZERO TO ONE
-    int paramA = (int) ((max_length_mod - min_length_mod) * angleMod) + min_length_mod;
-    int paramB = 4096 - paramA;
-    driver->setPWM(channel, 0, paramA);
+    float angleMod = (float) (angle + 90) / 180; // Make angle 0.0f to 1.0f.
+            int paramA = (int) ((max_length_mod - min_length_mod) * angleMod) + min_length_mod;
+            driver->setPWM(channel, 0, paramA);
+
     return 0; // DONE
 }
 
-struct thread_params {
-    Servo* servo;
-    int* servo_angle;
-    int* servo_speed;
-    bool* turning;
-    bool* running;
-};
+void* thread_method(void* args) {
+    ThreadParameters* args_struct = (ThreadParameters *) args;
+            Servo* servo = args_struct->servo;
+            int* targetAngle = args_struct->targetAngle;
+            int* speed = args_struct->speed;
+            bool* turning = args_struct->turning;
+            bool* running = args_struct->running;
+
+
+            /* ADD STUFF? */
+    while (servo->isRunning()) {
+        /* ADD SERVO LOOP LOGIC */
+    }
+}
