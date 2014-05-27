@@ -5,21 +5,23 @@
 
 //Constructor
 
-Servo::Servo(int channel, PCA9685 driver, int min, int max) {
+Servo::Servo(int channel, PCA9685* driver, int min, int max) {
     this->running = true;
     this->turning = false;
     this->servo_angle = 0;
     this->servo_speed = 1000; // DURATION IN MS
     this->channel = channel;
-    this->driver = &driver;
+    this->driver = driver;
     this->driver->setPWMFreq(FREQ);
     this->min_angle = min;
     this->max_angle = max;
     this->max_length_mod = MAX_LENGTH;
     this->min_length_mod = MIN_LENGTH;
+    
+    
 
     this->thread_parameters = {
-        &this,
+        $this->driver.setPWM;
         &this->targetAngle,
         &this->speed,
         &this->turning,
@@ -69,20 +71,18 @@ int Servo::setAngle(int angle, int speed) {
 void* Servo::thread_method(void* args) {
     ThreadParameters* args_struct = (ThreadParameters *) args;
 
-            Servo* servo = args_struct->servo;
-            PCA9685* driver = args_struct->driver;
+            void(*driver)(uint8_t, int) = args_struct->driver;
             int* targetAngle = args_struct->targetAngle;
             int* speed = args_struct->speed;
             bool* turning = args_struct->turning;
             bool* running = args_struct->running;
 
-            float currentAngle = 0.0f;
+            float currentAngle = 1.0f;
             float angleMod = 0.0f;
             int currentTargetAngle = 0;
             float angleDif = 0.0f;
             int ticksLeft;
             int pwmFreq = servo.MAX_LENGTH;
-
 
     while (servo->isRunning()) {
         if (!(*targetAngle == currentTargetAngle)) {
@@ -94,7 +94,7 @@ void* Servo::thread_method(void* args) {
                     currentAngle += angleDif; // Add angle for this tick to current angle.
                     angleMod = (float) (currentAngle + 90) / 180;
                     pwmFreq = (int) ((max_length_mod - min_length_mod) * angleMod) + min_length_mod;
-                    driver->setPWM(channel, 0, paramA);
+                    (*driver)(channel, 0, pwmFreq);
         } else {
             *turning = false; // Servo is stationary.
         }

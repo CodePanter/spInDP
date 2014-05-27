@@ -13,7 +13,7 @@ using namespace std;
 class Servo {
 public:
 
-    Servo(int channel, PCA9685 driver, int min = -90, int max = 90);
+    Servo(int channel, PCA9685* driver, int min = -90, int max = 90);
     ~Servo();
     int setAngle(int, int);
     int setPeriod(int);
@@ -24,9 +24,8 @@ public:
 
 private:
 
-    struct ThreadParameters{
-        Servo* servo;
-        PCA9685* driver;
+    struct ThreadParameters {
+        void (*driver)(uint8_t, int, int);
         int* targetAngle;
         int* speed;
         bool* turning;
