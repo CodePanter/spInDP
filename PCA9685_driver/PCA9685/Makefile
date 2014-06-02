@@ -36,7 +36,7 @@ LIBRARIES := -L/usr/lib
 #LIBRARIES := -L../../I2C/src
 
 LIBS := -lI2C
-CXXFLAGS := -O3 -fPIC -g -Wall -Werror $(INCLUDES)  $(LIBRARIES) $(LIBS) -shared -lpthread
+CXXFLAGS := -O3 -fPIC -g -Wall -Werror $(INCLUDES)  $(LIBRARIES) $(LIBS) -shared
 CXX := g++
 #CXX := arm-unknown-linux-gnueabi-g++
 MAJOR := 0
