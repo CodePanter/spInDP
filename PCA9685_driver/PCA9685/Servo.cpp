@@ -2,13 +2,13 @@
 #include "Servo.h"
 
 /* ----------------------------------------------------------------------------------- *\
- |	Each Servo object has a thread, which manipulates a physical servo, trough a pwm   |
- |	driver library, specifically for the "Adafruit PCA9685". Each thread is controlled |
- |	trough pointers, which are declared in their parent classes. Those values are in   |
- |	turn controlled trough the setAngle function.                                      |
+ |  Each Servo object has a thread, which manipulates a physical servo, trough a pwm   |
+ |  driver library, specifically for the "Adafruit PCA9685". Each thread is controlled |
+ |  trough pointers, which are declared in their parent classes. Those values are in   |
+ |  turn controlled trough the setAngle function.                                      |
 \* ----------------------------------------------------------------------------------- */
 
-//Constructor
+// Constructor
 
 Servo::Servo(int channel, PCA9685* driver, int min, int max) {
     // Initialization
@@ -74,11 +74,11 @@ bool Servo::isTurning() {
 int Servo::setAngle(int angle, int speed) {
     // Sets target angle for thread, if within set range.
     if ((angle > this->max_angle) || (angle < this->min_angle)) {
+            cout << angle <<" is out of range.";
             return 1; // Parameter out of range.
         }
-	this->speed = speed; // Speed is set first, to prevent thread using incorrect speed.
-    this->targetAngle = angle;
-
+    this->servo_speed = speed; // Speed is set first, to prevent thread using incorrect speed.
+    this->servo_angle = angle;
 
     return 0; // DONE
 }
@@ -89,7 +89,7 @@ void* Servo::thread_method(void* args) { // static in header
     ThreadParameters* args_struct = (ThreadParameters *) args;
 
     // Parameters read from struct to local vars and pointers.
-	// Done to prevent confusing derefrences and such, making code unreadable.
+    // Done to prevent confusing derefrences and such, making code unreadable.
     PCA9685* driver =  args_struct->driver;
     int* targetAngle = args_struct->targetAngle;
     int* speed =       args_struct->speed;
@@ -97,30 +97,35 @@ void* Servo::thread_method(void* args) { // static in header
     bool* running =    args_struct->running;
     int channel =      args_struct->channel;
     Modifiers mod =    args_struct->modifiers;
-	// ^^ vars that aren't constantly manipulated organized in another struct.
+    // ^^ vars that aren't constantly manipulated organized in another struct.
 
-	// Local variables for thread.
+    // Local variables for thread.
     float currentAngle = 1.0f;
-    float angle = 0.0f;
+    float angle = 1.0f;
     int currentTargetAngle = 0;
     float angleDif = 0.0f;
     int ticksLeft;
-    int pwmLength = (int) ((*mod.max_length - *mod.min_length) * 0.5f) + *mod.min_length; // Set pwm length to middle.
+    int pwmLength = (int) ((float)((*mod.max_length) - (*mod.min_length)) * angle) + (float)(*mod.min_length); // Set pwm length to middle.
+    //cout << "Init with max " << *mod.max_length << " min " << *mod.min_length << "." << endl;
 
 	// Thread loop, breaks when running is set to false, from anywhere.
     while (*running) {
-        if (!(*targetAngle == currentTargetAngle)) {
+        if (!((*targetAngle) == currentTargetAngle)) {
+            *speed = *speed == 0 ? 1 : *speed;
+            currentTargetAngle = *targetAngle;
             // Calculate difference per ms
-            angleDif = (((float) currentTargetAngle - (float) *targetAngle) / (float) *speed);
+            angleDif = (((float) (*targetAngle) - (float) currentAngle) / (float) (*speed));
+			//cout << "New angle set at " << channel << "." << endl <<
+			//"speed: " << *speed << " angleDif: " << angleDif << " angle: " << currentTargetAngle << endl;
         }
-        if (currentAngle != *targetAngle) {
+        if (angleDif > 0.0f ? currentAngle < *targetAngle : currentAngle > *targetAngle) {
             *turning = true; // Servo is turning.
                     currentAngle += angleDif; // Add angle for this tick to current angle.
-                    angle = (float) (currentAngle + 90) / 180; // Make angle value from 0 to 1
+                    angle = (currentAngle + 90.0f) / 180.0f; // Make angle value from 0 to 1
 					// Multiply difference between max pwm length and min pwm length by "angle", add minimum angle.
 					// The result the correct pwm length for the angle.
-                    pwmLength = (int) ((*mod.max_length - *mod.min_length) * angle) + *mod.min_length;
-					// Call driver function to set pwm length
+                    pwmLength = (int) (((float)(*mod.max_length) - (float)(*mod.min_length)) * angle) + (float)(*mod.min_length);
+					// Call driver function to set pwm length.
                     driver->setPWM(channel, 0, pwmLength);
         } else {
             *turning = false; // Servo is stationary

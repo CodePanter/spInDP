@@ -16,15 +16,15 @@ int main() {
     driver.setPWMFreq(45);
 
     Servo* servos[3];
-    servos[0] = new Servo(0, &driver);
-    servos[1] = new Servo(3, &driver);
-    servos[2] = new Servo(4, &driver);
+    servos[0] = new Servo(0, &driver/*, -90, 90*/);
+    servos[1] = new Servo(1, &driver, -90, 90);
+    servos[2] = new Servo(2, &driver, -90, 90);
 
     bool b = true;
 
-    servos[0]->setAngle(0, 1000);
-    servos[1]->setAngle(0, 1000);
-    servos[2]->setAngle(0, 1000);
+    //servos[0]->setAngle(90, 1000);
+    //servos[1]->setAngle(90, 1000);
+    //servos[2]->setAngle(90, 1000);
 
     int s;
     int i = 0;

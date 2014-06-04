@@ -44,8 +44,8 @@ private:
     ThreadParameters thread_parameters;
 
      // init constructor
-    int targetAngle; // init constructor
-    int speed; // init constructor
+    //int targetAngle; // init constructor
+    //int speed; // init constructor
     int channel; // init constructor
     PCA9685 * driver; // init constructor
     static void* thread_method(void*);
@@ -53,8 +53,8 @@ private:
     int min_angle; // init in constructor parameters
     int max_length; // init constructor
     int min_length; // init constructor
-    static const int MAX_LENGTH = 412;
-    static const int MIN_LENGTH = 204;
+    static const int MAX_LENGTH = 515;
+    static const int MIN_LENGTH = 103;
     static const int PERIOD = 19920;
     static const int FREQ = 45;
     static const int FULL_RESOLUTION = 4096;
