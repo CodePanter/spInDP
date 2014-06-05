@@ -11,15 +11,23 @@ ServoController::ServoController() {
     
     ctr = 0;
     
-    for (int i = 0; i < 3; i++) {
-        servos[i] = new Servo(i, &driver);
-    }
+    leg = new Leg(&driver, 0);
+    //use this when adding all the legs:
+    /*
+    for (int i = 0; i < 6; i++) {
+        legs[i] = new Leg(&driver, i * SERVO_COUNT); //i * SERVO_COUNT for header offset
+    } 
+    */
 }
 
 ServoController::~ServoController() {
-    for (int i = 0; i < 3; i++) {
-        delete servos[i];
+    delete leg;
+    //see constructor
+    /*
+    for (int i = 0; i < 6; i++) {
+        delete legs[i];
     }
+    */
 }
 
 void ServoController::setState(int snum) {
@@ -45,9 +53,7 @@ void ServoController::setState(int snum) {
     ctr = (ctr + 1) % 2;
     int angle = ctr ? 50 : -50;
     
-    servos[0]->setAngle(angle, 150);
-    servos[1]->setAngle(angle, 150);
-    servos[2]->setAngle(angle, 150);
+    leg->twitch(angle, 150);
 }
 
 std::string ServoController::getInfo() {

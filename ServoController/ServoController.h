@@ -5,7 +5,7 @@
 #include <string>
 
 #include "PCA9685.h"
-#include "Servo.h"
+#include "Leg.h"
 
 class ServoController {
 public:
@@ -20,7 +20,7 @@ public:
     
 private:
     PCA9685 driver;
-    Servo* servos[3];
+    Leg* leg; //todo: change this to array of legs
     int ctr; //hax
     
     void resolveState(state newstate, state cond);
