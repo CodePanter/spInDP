@@ -28,6 +28,7 @@ int main(int argc, char** argv) {
         out = world + pos.rotateZ(rot);
     }
     //Laptop Sietse timed at 1.000.000 in 355ms.
+    //Desktop Sietse timed at 1.000.000 in 232ms.
 
     return 0;
 }
