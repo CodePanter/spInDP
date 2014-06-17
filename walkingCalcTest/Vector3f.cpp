@@ -29,6 +29,9 @@ Vector3f::Vector3f() {
 }
 
 Vector3f::Vector3f(const Vector3f& orig) {
+        this->x = orig.x;
+        this->y = orig.y;
+        this->z = orig.z;
 }
 
 Vector3f::~Vector3f() {
@@ -62,25 +65,36 @@ const Vector3f Vector3f::rotateX(double rot) const {
     Vector3f vec = Vector3f(this->x, this->y, this->z);
     return vec * Matrix3f::rotationX(rot);
 }
+
 const Vector3f Vector3f::rotateX(Vector3f rot) const {
     Vector3f vec = Vector3f(this->x, this->y, this->z);
     return vec * Matrix3f::rotationX(rot.x);
 }
+
 const Vector3f Vector3f::rotateY(double rot) const {
     Vector3f vec = Vector3f(this->x, this->y, this->z);
     return vec * Matrix3f::rotationY(rot);
 }
+
 const Vector3f Vector3f::rotateY(Vector3f rot) const {
     Vector3f vec = Vector3f(this->x, this->y, this->z);
     return vec * Matrix3f::rotationY(rot.y);
 }
+
 const Vector3f Vector3f::rotateZ(double rot) const {
     Vector3f vec = Vector3f(this->x, this->y, this->z);
     return vec * Matrix3f::rotationZ(rot);
 }
+
 const Vector3f Vector3f::rotateZ(Vector3f rot) const {
     Vector3f vec = Vector3f(this->x, this->y, this->z);
     return vec * Matrix3f::rotationZ(rot.z);
+}
+
+const Vector3f Vector3f::rotate(Vector3f rot) const {
+    return Vector3f(
+           ((*this) * ((Matrix3f::rotationZ(rot.z) * Matrix3f::rotationX(rot.x)) * Matrix3f::rotationY(rot.y)))
+            );
 }
 
 ostream& operator<<(ostream& os, const Vector3f & rhs) {

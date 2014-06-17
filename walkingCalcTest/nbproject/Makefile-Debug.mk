@@ -37,6 +37,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/_ext/352903889/Matrix3f.o \
 	${OBJECTDIR}/_ext/352903889/Vector3f.o \
+	${OBJECTDIR}/Leg.o \
+	${OBJECTDIR}/Servo.o \
 	${OBJECTDIR}/main.o
 
 
@@ -73,6 +75,16 @@ ${OBJECTDIR}/_ext/352903889/Vector3f.o: ../walkingCalcTest/Vector3f.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/352903889
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/352903889/Vector3f.o ../walkingCalcTest/Vector3f.cpp
+
+${OBJECTDIR}/Leg.o: Leg.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Leg.o Leg.cpp
+
+${OBJECTDIR}/Servo.o: Servo.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Servo.o Servo.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

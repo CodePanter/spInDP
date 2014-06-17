@@ -39,6 +39,7 @@ public:
     const Vector3f rotateY(Vector3f) const;
     const Vector3f rotateZ(double) const;
     const Vector3f rotateZ(Vector3f) const;
+    const Vector3f rotate(Vector3f) const;
     
     friend ostream& operator<<(ostream& os, const Vector3f & rhs);
     

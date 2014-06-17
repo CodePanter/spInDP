@@ -12,9 +12,12 @@
 #include <cmath>
 
 Matrix3f::Matrix3f(
-        double x1, double x2, double x3,
+        double x1, double y1, double z1,
+        double x2, double y2, double z2,
+        double x3, double y3, double z3
+/*        double x1, double x2, double x3,
         double y1, double y2, double y3,
-        double z1, double z2, double z3) {
+        double z1, double z2, double z3*/) {
     this->x1 = x1;
     this->x2 = x2;
     this->x3 = x3;

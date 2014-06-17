@@ -4,7 +4,9 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>Leg.h</itemPath>
       <itemPath>../walkingCalcTest/Matrix3f.h</itemPath>
+      <itemPath>Servo.h</itemPath>
       <itemPath>../walkingCalcTest/Vector3f.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -14,7 +16,9 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>Leg.cpp</itemPath>
       <itemPath>../walkingCalcTest/Matrix3f.cpp</itemPath>
+      <itemPath>Servo.cpp</itemPath>
       <itemPath>../walkingCalcTest/Vector3f.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
@@ -49,6 +53,14 @@
       </item>
       <item path="../walkingCalcTest/Vector3f.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Leg.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Leg.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Servo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Servo.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
@@ -80,6 +92,14 @@
       <item path="../walkingCalcTest/Vector3f.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../walkingCalcTest/Vector3f.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Leg.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Leg.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Servo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Servo.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
