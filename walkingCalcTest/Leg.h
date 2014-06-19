@@ -14,12 +14,12 @@
 
 class Leg {
 public:
-    Servo s1;
-    Servo s2;
-    Servo s3;
+    Servo* s1;
+    Servo* s2;
+    Servo* s3;
     
     Vector3f getZeroPos();
-
+    
     int s1_angleOffset;
     int s2_angleOffset;
     int s3_angleOffset;
@@ -32,10 +32,10 @@ public:
 
     Leg();
     Leg(Vector3f pos, int s1_angleOffset, int s2_angleOffset, int s3_angleOffset,
-            float foot_Offset, bool s1_inverse, bool s2_inverse, bool s3_inverse, bool x_inverse);
+            float foot_Offset, bool s1_inverse, bool s2_inverse, bool s3_inverse, bool x_inverse, Servo* s1, Servo* s2, Servo* s3);
     virtual ~Leg();
     int setPos(Vector3f);
-    void addPos(Vector3f);
+    int addPos(Vector3f);
 private:
     Vector3f aZeroPos; // position where all sero angles are 0.
     Vector3f location;

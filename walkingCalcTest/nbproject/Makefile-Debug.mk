@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/352903889/Vector3f.o \
 	${OBJECTDIR}/Leg.o \
 	${OBJECTDIR}/Servo.o \
+	${OBJECTDIR}/WalkingAnimator.o \
 	${OBJECTDIR}/main.o
 
 
@@ -85,6 +86,11 @@ ${OBJECTDIR}/Servo.o: Servo.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Servo.o Servo.cpp
+
+${OBJECTDIR}/WalkingAnimator.o: WalkingAnimator.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/WalkingAnimator.o WalkingAnimator.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

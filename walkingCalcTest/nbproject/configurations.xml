@@ -8,6 +8,7 @@
       <itemPath>../walkingCalcTest/Matrix3f.h</itemPath>
       <itemPath>Servo.h</itemPath>
       <itemPath>../walkingCalcTest/Vector3f.h</itemPath>
+      <itemPath>WalkingAnimator.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -20,6 +21,7 @@
       <itemPath>../walkingCalcTest/Matrix3f.cpp</itemPath>
       <itemPath>Servo.cpp</itemPath>
       <itemPath>../walkingCalcTest/Vector3f.cpp</itemPath>
+      <itemPath>WalkingAnimator.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -61,6 +63,10 @@
       </item>
       <item path="Servo.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="WalkingAnimator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="WalkingAnimator.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
@@ -100,6 +106,10 @@
       <item path="Servo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Servo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="WalkingAnimator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="WalkingAnimator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
